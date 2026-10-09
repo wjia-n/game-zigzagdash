@@ -176,7 +176,7 @@ class _SettingsScreenState extends State<SettingsScreen>
     final locked =
         !s.isPro && (isCustom || DashThemes.isProTheme(id));
     final sel = s.themeId == id;
-    final preview = isCustom ? s.customTheme : t!;
+    final preview = isCustom ? s.customTheme : t;
     return GestureDetector(
       onTap: () {
         if (locked) {
@@ -249,7 +249,7 @@ class _SettingsScreenState extends State<SettingsScreen>
             base: s.customBallColor,
             dark: s.customBallColor,
             light: s.customBallColor)
-        : b!;
+        : b;
     return GestureDetector(
       onTap: () {
         if (locked) {
