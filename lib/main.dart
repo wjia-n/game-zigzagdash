@@ -1,25 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:wajiha_game_core/wajiha_game_core.dart';
-import 'game_screen.dart';
+import 'screens/splash_screen.dart';
+import 'services/audio_service.dart';
+import 'services/settings_service.dart';
 
-void main() => runApp(const ZigzagDashApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final settings = DashSettings();
+  await settings.load();
+  final audio = DashAudio();
+  audio.configure(
+    musicOn: settings.musicOn,
+    sfxOn: settings.sfxOn,
+    volume: settings.volume,
+  );
+  runApp(ZigzagDashApp(audio: audio, settings: settings));
+}
 
 class ZigzagDashApp extends StatelessWidget {
-  const ZigzagDashApp({super.key});
+  final DashAudio audio;
+  final DashSettings settings;
+  const ZigzagDashApp(
+      {super.key, required this.audio, required this.settings});
 
   @override
   Widget build(BuildContext context) {
-    return GameShell(
-      variant: ShellVariant.comicBurst,
+    return MaterialApp(
       title: 'Zigzag Dash',
-      tagline: 'Zig and zag without falling off the endless path! 🌀',
-      emoji: '🌀',
-      slug: 'zigzagdash',
-      howToPlay:
-          '• Your ball dashes forward on its own. Tap anywhere!\n• TAP turns the ball — zig and zag to stay on the path.\n• Fall off the edge and the run ends. Grab ⭐ stars for glory!\n• The longer you survive, the faster it gets. Good luck! 🌀',
-      playerOptions: const [1],
-      supportsBots: false,
-      gameBuilder: (ctx, players, cb) => ZigzagDashScreen(players: players, callbacks: cb),
+      debugShowCheckedModeBanner: false,
+      home: SplashScreen(audio: audio, settings: settings),
     );
   }
 }
