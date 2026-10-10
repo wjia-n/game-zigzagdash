@@ -31,7 +31,7 @@ class DashSettings extends ChangeNotifier {
   Color customBallColor = const Color(0xFFD94F30);
   int difficulty = 1; // 0 chill, 1 normal, 2 extreme (2 = Pro)
   bool scoreAttack = false;
-  bool isPro = false;
+  bool isPro = true; // everything unlocked — no Pro version
   Map<String, int> bests = {}; // '<mode>_<diff>' -> score
   int starsCollected = 0;
   int gamesPlayed = 0;
