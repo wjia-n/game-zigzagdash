@@ -125,43 +125,7 @@ class _ProScreenState extends State<ProScreen> {
                                 color: theme.ink),
                           ),
                         )
-                      else ...[
-                        ChunkyButton(
-                          top: theme.accent,
-                          edge: theme.panelEdge,
-                          height: 62,
-                          onTap: store.purchaseInProgress.value
-                              ? null
-                              : () {
-                                  widget.audio.click();
-                                  store.buyPro();
-                                },
-                          child: store.purchaseInProgress.value
-                              ? SizedBox(
-                                  width: 24,
-                                  height: 24,
-                                  child: CircularProgressIndicator(
-                                      color: theme.ink,
-                                      strokeWidth: 3),
-                                )
-                              : Text(
-                                  'UNLOCK PRO${store.proProduct != null ? ' • ${store.proProduct!.price}' : ''}',
-                                  style: DashText.label(
-                                      17, color: theme.ink)),
-                        ),
-                        const SizedBox(height: 8),
-                        Center(
-                          child: TextButton(
-                            onPressed: () {
-                              widget.audio.click();
-                              store.restore();
-                            },
-                            child: Text('Restore purchases',
-                                style: DashText.label(
-                                    13, color: theme.accent)),
-                          ),
-                        ),
-                      ],
+                      
                     ],
                     const SizedBox(height: 8),
                     ValueListenableBuilder<String?>(
