@@ -3,6 +3,7 @@ import '../services/audio_service.dart';
 import '../services/settings_service.dart';
 import '../theme/dash_themes.dart';
 import '../theme/ui_kit.dart';
+import '../transfer/transfer_ui.dart';
 
 /// Settings with two tabs: THEMES (theme grid + ball styles + custom
 /// creator) and SETUP (audio, name, difficulty, progress reset).
@@ -438,6 +439,7 @@ class _SettingsScreenState extends State<SettingsScreen>
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
+              TransferSaveTile(gameSlug: 'zigzagdash'),
         WoodPanel(
           panel: theme.panel,
           edge: theme.panelEdge,
