@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../theme/dash_themes.dart';
 import '../theme/ui_kit.dart';
@@ -46,7 +47,7 @@ class RulesScreen extends StatelessWidget {
                 child: ListView(
                   padding: const EdgeInsets.all(16),
                   children: [
-                    for (final s in _sections)
+                    for (final s in (defaultTargetPlatform == TargetPlatform.iOS ? _sectionsIos : _sections))
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: WoodPanel(
@@ -125,6 +126,65 @@ const _sections = [
     'Chill: slow ball, long straightaways, frequent stars. '
         'Normal: brisk speed, regular corners. '
         'Extreme (Pro): blazing speed, tight constant corners, fewer stars. '
+        'Inside every run, the level rises every 400 tiles: faster ball, '
+        'tighter corners.'
+  ),
+  (
+    'EDGE CASES',
+    'Pausing freezes everything mid-roll and resumes exactly. '
+        'Backgrounding the app auto-pauses. '
+        'If the game loop ever stalls, a watchdog restarts it — a run can '
+        'never freeze with no way forward.'
+  ),
+];
+
+// iOS variant: same sections without the PRO tag (Android keeps the original).
+const _sectionsIos = [
+  (
+    'OBJECTIVE',
+    'Keep the ball on the endless zigzag track for as long as you can. '
+        'Every tile you cross scores a point; every star you grab scores more. '
+        'One wrong tap — or one late tap — and you fall off.'
+  ),
+  (
+    'SETUP',
+    'Pick a mode (Endless or Score Attack) and a difficulty (Chill, Normal, '
+        'Extreme). The ball starts on the first tile of a freshly built track, '
+        'rolling down-left. Tap anywhere to begin the countdown.'
+  ),
+  (
+    'LEGAL MOVES',
+    'Tap anywhere on the screen to flip the ball between its two diagonal '
+        'directions: down-left and down-right. That is the only move in the game.'
+  ),
+  (
+    'ILLEGAL MOVES',
+    'There are none — every tap is accepted in Endless and Score Attack. '
+        'Tapping during the countdown or after the run ends simply does nothing.'
+  ),
+  (
+    'TURNS & CORNERS',
+    'The track turns on its own. Corner tiles are marked with a chevron — '
+        'tap just before the ball reaches one to stay on the path. '
+        'Tap too early or too late and the ball rolls off the edge.'
+  ),
+  (
+    'SCORING',
+    '+1 point per tile crossed. Stars are worth 10 × your current combo '
+        '(up to ×5): grab stars back-to-back to build the combo. '
+        'Missing a star never breaks anything — the combo only counts stars.'
+  ),
+  (
+    'WINNING & LOSING',
+    'There is no final win — the run ends when the ball falls off the track '
+        '(Endless) or when the 60-second timer hits zero (Score Attack). '
+        'Beating your best score on a mode + difficulty is the victory.'
+  ),
+  (
+    'DIFFICULTY PROGRESSION',
+    'Chill: slow ball, long straightaways, frequent stars. '
+        'Normal: brisk speed, regular corners. '
+        'Extreme: blazing speed, tight constant corners, fewer stars. '
         'Inside every run, the level rises every 400 tiles: faster ball, '
         'tighter corners.'
   ),
