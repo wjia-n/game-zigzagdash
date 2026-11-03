@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'gold_star_screen.dart';
 import '../services/audio_service.dart';
 import '../services/settings_service.dart';
 import '../services/iap_service.dart';
@@ -47,6 +49,9 @@ class _ProScreenState extends State<ProScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      return const GoldStarScreen();
+    }
     final s = widget.settings;
     final store = widget.store;
     final theme = DashThemes.byId(s.themeId, custom: s.customTheme);

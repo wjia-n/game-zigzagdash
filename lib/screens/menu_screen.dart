@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../services/audio_service.dart';
 import '../services/settings_service.dart';
@@ -197,7 +198,7 @@ class _MenuScreenState extends State<MenuScreen> with WidgetsBindingObserver {
                               size: 16,
                               color:
                                   theme.ink.withValues(alpha: 0.7)),
-                          if (s.isPro) ...[
+                          if (s.isPro && defaultTargetPlatform != TargetPlatform.iOS) ...[
                             const SizedBox(width: 8),
                             Container(
                               padding: const EdgeInsets.symmetric(
@@ -305,7 +306,7 @@ class _MenuScreenState extends State<MenuScreen> with WidgetsBindingObserver {
                                     initialTab: 1)))
                             .then((_) => setState(() {}));
                       }),
-                      _navBtn(theme, Icons.star, 'PRO', () {
+                      _navBtn(theme, Icons.star, defaultTargetPlatform == TargetPlatform.iOS ? '⭐ Gold Star' : 'PRO', () {
                         widget.audio.click();
                         Navigator.of(context)
                             .push(MaterialPageRoute(
@@ -449,7 +450,7 @@ class _MenuScreenState extends State<MenuScreen> with WidgetsBindingObserver {
   String _diffBlurb(int d) => [
         'Chill: gentle speed, long straightaways. Learn the ropes.',
         'Normal: a brisk dash with regular corners.',
-        'Extreme (PRO): blazing fast, tight nonstop corners.',
+        defaultTargetPlatform == TargetPlatform.iOS ? 'Extreme: blazing fast, tight nonstop corners.' : 'Extreme (PRO): blazing fast, tight nonstop corners.',
       ][d.clamp(0, 2)];
 
   Widget _navBtn(
